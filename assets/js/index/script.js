@@ -5,28 +5,31 @@ document.addEventListener("DOMContentLoaded", () => {
     lenis.raf(time * 1000);
   });
   gsap.ticker.lagSmoothing(0);
+
   const sections = gsap.utils.toArray(".trick-section");
+
   sections.forEach((section, index) => {
-    const container = section.querySelector(".container-sec");
-    if (index > 0) {
-      gsap.to(container, {
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top bottom",
-          end: "top 25%",
-          scrub: true,
-        },
-      });
-    }
-    if (index < sections.length - 1) {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "bottom bottom",
-        end: "bottom top",
-        pin: true,
-        pinSpacing: false,
-      });
-    }
+    if (index === 0) return; // section đầu không cần
+
+    // Pin section trước để section sau clip đè lên
+    ScrollTrigger.create({
+      trigger: sections[index - 1],
+      start: "top top",
+      end: "+=100%",
+      pin: true,
+      pinSpacing: false,
+    });
+
+    // Animate clip-path từ inset(100%) → inset(0%)
+    gsap.to(section, {
+      clipPath: "inset(0% 0 0 0)",
+      ease: "none",
+      scrollTrigger: {
+        trigger: sections[index - 1],
+        start: "top top",
+        end: "+=100%",
+        scrub: true,
+      },
+    });
   });
 });
