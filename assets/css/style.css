@@ -1,0 +1,21 @@
+.trick-section {
+  width: 100%;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: var(--style-bgc);
+  position: relative;
+}
+
+.trick-section .container-sec {
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.trick-section .container-sec h1 {
+  text-transform: uppercase;
+  font-size: 4rem;
+  color: var(--color-text);
+}
